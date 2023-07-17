@@ -4,19 +4,11 @@ import { Contact } from 'contactList/Contact';
 
 import { ContactsLitsStyled } from 'contactList/ContactListStyled.styled';
 
-export const ContactList = ({ ren, onDeleteUser }) => {
+export const ContactList = ({ ren }) => {
   return (
     <ContactsLitsStyled>
       {ren.map(({ id, name, number }) => {
-        return (
-          <Contact
-            key={id}
-            id={id}
-            name={name}
-            number={number}
-            onDeleteUser={onDeleteUser}
-          />
-        );
+        return <Contact key={id} id={id} name={name} number={number} />;
       })}
     </ContactsLitsStyled>
   );
@@ -30,5 +22,4 @@ ContactList.propTypes = {
       number: PropTypes.string.isRequired,
     }).isRequired
   ).isRequired,
-  onDeleteUser: PropTypes.func.isRequired,
 };

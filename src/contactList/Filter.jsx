@@ -1,6 +1,9 @@
-import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
+import { incr } from 'redux/store';
 
-export const Filter = ({ filter, onChange }) => {
+export const Filter = () => {
+  const dispatch = useDispatch();
+  const filter = useSelector(state => state.filter);
   return (
     <label>
       Name
@@ -8,14 +11,10 @@ export const Filter = ({ filter, onChange }) => {
         type="text"
         name="filter"
         placeholder="Neme Surname"
-        value={filter}
-        onChange={onChange}
+        value={filter.payload ? filter.payload : ''}
+        onChange={e => dispatch(incr(e.target.value))}
         required
       />
     </label>
   );
-};
-Filter.propTypes = {
-  filter: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
 };

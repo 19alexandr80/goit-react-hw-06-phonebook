@@ -1,7 +1,10 @@
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { decrement } from 'redux/store';
 import { ContactStyled, TelStyled } from 'contactList/ContactListStyled.styled';
 
-export const Contact = ({ id, name, number, onDeleteUser }) => {
+export const Contact = ({ id, name, number }) => {
+  const dispatch = useDispatch();
   return (
     <ContactStyled>
       <p>
@@ -9,7 +12,7 @@ export const Contact = ({ id, name, number, onDeleteUser }) => {
       </p>
       <button
         type="button"
-        onClick={e => onDeleteUser(e.target.dataset.id)}
+        onClick={e => dispatch(decrement(e.target.dataset.id))}
         data-id={id}
       >
         Delete
@@ -22,5 +25,4 @@ Contact.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   number: PropTypes.string.isRequired,
-  onDeleteUser: PropTypes.func.isRequired,
 };

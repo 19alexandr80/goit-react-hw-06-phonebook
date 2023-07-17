@@ -1,23 +1,29 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { createAction, createReducer } from '@reduxjs/toolkit';
 
-export const increment = createAction('value/increment');
-export const decrement = createAction('value/decrement');
+export const increment = createAction('contacts/increment');
+export const decrement = createAction('contacts/decrement');
 
-const myReducer = createReducer(50, {
-  [increment]: (state, action) => state + action.payload,
-  [decrement]: (state, action) => state - action.payload,
+export const incr = createAction('filter/incr');
+
+const contactsReducer = createReducer([], {
+  [increment]: (state, action) => {
+    state.push(action.payload);
+  },
+  [decrement]: (state, action) =>
+    state.filter(({ id }) => {
+      return id !== action.payload;
+    }),
 });
-
-const contactsReducer = createReducer(50, {
-  [increment]: (state, action) => state.push(action.payload),
-  [decrement]: (state, action) => state - action.payload,
+const filterReducer = createReducer('', {
+  [incr]: (state, action) => {
+    return action;
+  },
 });
 
 export const store = configureStore({
   reducer: {
-    value: myReducer,
-    // contacts: [],
-    // filter: '',
+    contacts: contactsReducer,
+    filter: filterReducer,
   },
 });

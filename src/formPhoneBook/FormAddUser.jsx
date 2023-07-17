@@ -1,25 +1,26 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
+import { increment } from 'redux/store';
+import { nanoid } from 'nanoid';
+import { useSelector, useDispatch } from 'react-redux';
 
-export function FormAddUser({ addUserPhoneBook }) {
+export function FormAddUser() {
+  const dispatch = useDispatch();
+  const contactss = useSelector(state => state.contacts);
+
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const ressetForm = () => {
     setName('');
     setNumber('');
   };
-  // const inputChange = e => {
-  //   switch (e.target.name) {
-  //     case 'name':
-  //       setName(e.target.value);
-  //       break;
-  //     case 'number':
-  //       setNumber(e.target.value);
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  // };
+  const addUserPhoneBook = add => {
+    if (contactss.find(el => el.name === add.name)) {
+      alert(add.name + ' is already in contacts');
+      return;
+    }
+    add.id = nanoid();
+    dispatch(increment(add));
+  };
   const formSubmit = e => {
     e.preventDefault();
     addUserPhoneBook({
@@ -60,6 +61,3 @@ export function FormAddUser({ addUserPhoneBook }) {
     </form>
   );
 }
-FormAddUser.propTypes = {
-  addUserPhoneBook: PropTypes.func.isRequired,
-};
