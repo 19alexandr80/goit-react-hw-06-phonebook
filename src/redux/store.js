@@ -1,22 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { createAction, createReducer, createSlice } from '@reduxjs/toolkit';
 
-// export const increment = createAction('contacts/increment');
-// export const decrement = createAction('contacts/decrement');
-
 export const incr = createAction('filter/incr');
-
-// const contactsReducer = createReducer([], builder =>
-//   builder
-//     .addCase(increment, (state, action) => {
-//       state.push(action.payload);
-//     })
-//     .addCase(decrement, (state, action) =>
-//       state.filter(({ id }) => {
-//         return id !== action.payload;
-//       })
-//     )
-// );
 
 const contactsSlise = createSlice({
   name: 'contacts',
@@ -46,3 +31,4 @@ export const store = configureStore({
     filter: filterReducer,
   },
 });
+console.log(contactsSlise.actions);
