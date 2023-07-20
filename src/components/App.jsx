@@ -7,7 +7,7 @@ import { ContactList } from 'contactList/ContactList';
 import { AppStyled } from 'AppStyled.styled';
 
 export const App = () => {
-  const contacts = useSelector(state => state.contacts);
+  const contacts = useSelector(state => state.contacts.value);
   const filter = useSelector(state => state.filter);
 
   const ren = useMemo(() => {
@@ -24,7 +24,7 @@ export const App = () => {
       <FormAddUser />
       <h2>Contacts</h2>
       <Filter />
-      {ren.length !== 0 && <ContactList ren={ren} />}
+      {ren && <ContactList ren={ren} />}
     </AppStyled>
   );
 };

@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 export function FormAddUser() {
   const dispatch = useDispatch();
-  const contactss = useSelector(state => state.contacts);
+  const contactss = useSelector(state => state.contacts.value);
 
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
