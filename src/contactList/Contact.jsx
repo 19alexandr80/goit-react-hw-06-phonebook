@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { decrement } from 'redux/store';
+import { decrement } from 'redux/slise';
 import { ContactStyled, TelStyled } from 'contactList/ContactListStyled.styled';
 
 export const Contact = ({ id, name, number }) => {

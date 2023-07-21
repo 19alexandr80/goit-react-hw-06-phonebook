@@ -1,10 +1,21 @@
-import PropTypes from 'prop-types';
+import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 
 import { Contact } from 'contactList/Contact';
 
 import { ContactsLitsStyled } from 'contactList/ContactListStyled.styled';
 
-export const ContactList = ({ ren }) => {
+export const ContactList = () => {
+  const contacts = useSelector(state => state.contacts.value);
+  const filter = useSelector(state => state.filter);
+  const ren = useMemo(() => {
+    if (!filter) {
+      return contacts;
+    }
+    return contacts.filter(({ name }) => {
+      return name.toLowerCase().includes(filter.payload.toLowerCase());
+    });
+  }, [filter, contacts]);
   return (
     <ContactsLitsStyled>
       {ren.map(({ id, name, number }) => {
@@ -12,14 +23,4 @@ export const ContactList = ({ ren }) => {
       })}
     </ContactsLitsStyled>
   );
-};
-
-ContactList.propTypes = {
-  ren: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-    }).isRequired
-  ).isRequired,
 };

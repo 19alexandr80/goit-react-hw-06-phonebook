@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { increment } from 'redux/store';
+import { increment } from 'redux/slise';
 import { nanoid } from 'nanoid';
 import { useSelector, useDispatch } from 'react-redux';
 

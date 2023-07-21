@@ -1,10 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import {
-  createAction,
-  createReducer,
-  createSlice,
-  getDefaultMiddleware,
-} from '@reduxjs/toolkit';
+import { getDefaultMiddleware } from '@reduxjs/toolkit';
 
 import {
   persistStore,
@@ -18,45 +13,19 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
+import { contactsSlise, filterSlise } from 'redux/slise';
+
 const persistConfig = {
   key: 'root',
   storage,
 };
 
-// =---------------===================
-
-export const incr = createAction('filter/incr');
-
-const contactsSlise = createSlice({
-  name: 'contacts',
-  initialState: {
-    value: [],
-  },
-  reducers: {
-    increment(state, action) {
-      state.value.push(action.payload);
-    },
-    decrement(state, action) {
-      state.value = state.value.filter(({ id }) => {
-        return id !== action.payload;
-      });
-    },
-  },
-});
-
 const persistedReducer = persistReducer(persistConfig, contactsSlise.reducer);
-
-const filterReducer = createReducer('', builder =>
-  builder.addCase(incr, (state, action) => {
-    return action;
-  })
-);
-export const { increment, decrement } = contactsSlise.actions;
 
 export const store = configureStore({
   reducer: {
     contacts: persistedReducer,
-    filter: filterReducer,
+    filter: filterSlise.reducer,
   },
   middleware: getDefaultMiddleware({
     serializableCheck: {

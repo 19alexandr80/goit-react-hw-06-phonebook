@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { incr } from 'redux/store';
+import { incr } from 'redux/slise';
 
 export const Filter = () => {
   const dispatch = useDispatch();
